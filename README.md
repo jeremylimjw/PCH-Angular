@@ -1,2 +1,2 @@
-Do `npm install` on `git clone`
-Ensure that GlassFish server is running with RESTful web services enabled
+1. Ensure that GlassFish server is running in the background with RESTful web services enabled
+2. Do `npm install` on `git clone`
