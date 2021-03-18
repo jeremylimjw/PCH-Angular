@@ -1,0 +1,52 @@
+#container {
+    position: fixed;
+    bottom: 0;
+    z-index: 9999;
+}
+
+.message {
+    position: relative;
+    color:white;
+    padding: 15px 20px 15px 20px;
+    width: 50vw;
+    margin: 10px;
+}
+
+.message-error {
+    background-color: #CD5C5C;
+}
+
+.message-warning {
+    background-color: #404040;
+}
+
+.message-success {
+    background-color: #228B22;
+}
+
+.message-warning .button-close  {
+    color:#A9A9A9;
+}
+
+.p-message {
+    margin:0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+.button-close {
+    background-color: transparent;
+    position: absolute;
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 18px;
+    top: 15px;
+    right: 6px;
+}
+
+.p-message:hover {
+    color: #C0C0C0 !important;
+}

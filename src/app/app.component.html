@@ -1,1 +1,16 @@
-<router-outlet></router-outlet>
+<mat-toolbar color="primary" style="height: 64px;">
+    <button mat-button [routerLink]="'/'"><mat-icon>home</mat-icon><span style="margin-left: 10px;font-size:18px;">Private Care Hub</span></button>
+    <a mat-button [routerLink]="'/login'" *ngIf="!authService.isLoggedIn()"><mat-icon>lock</mat-icon> Login </a>
+    <a mat-button [routerLink]="'/register'" *ngIf="!authService.isLoggedIn()"><mat-icon>person_add</mat-icon> Create Account </a>
+    <a mat-button [routerLink]="'/new'" *ngIf="authService.isLoggedIn()"><mat-icon>add_circle_outline</mat-icon> New Appointment </a>
+    <a mat-button [routerLink]="'/history'" *ngIf="authService.isLoggedIn()"><mat-icon>history</mat-icon> History </a>
+    <a mat-button [routerLink]="'/account'" *ngIf="authService.isLoggedIn()"><mat-icon>person</mat-icon> Account </a>
+    <span style="flex: 1 1 auto;"></span>
+    <a mat-button (click)="authService.logout()" *ngIf="authService.isLoggedIn()"><mat-icon>logout</mat-icon> Logout </a>
+</mat-toolbar>
+
+<div style="height: calc(100% - 64px);">
+    <router-outlet></router-outlet>
+</div>
+
+<app-messages></app-messages>
