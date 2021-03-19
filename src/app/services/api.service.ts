@@ -12,4 +12,20 @@ export class ApiService {
   getAppointments(id: number): Observable<any> {
     return this.http.get<any>(`api/appointments/medicalRecord/${id}`);
   }
+
+  getAppointmentById(id: number): Observable<any> {
+    return this.http.get<any>(`api/appointments/${id}`);
+  }
+
+  getAllAppointments(): Observable<any> {
+    return this.http.get<any>(`api/appointments`);
+  }
+
+  newAppointment(doctorId: number, medicalRecordId: number, date: Date, type: string): Observable<any> {
+    return this.http.post<any>(`api/appointments`, { doctor_id: doctorId, medical_record_id: medicalRecordId, date: date, type: type});
+  }
+
+  getDoctors(): Observable<any> {
+    return this.http.get<any>(`api/doctors`);
+  }
 }

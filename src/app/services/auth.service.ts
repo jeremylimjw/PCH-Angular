@@ -12,7 +12,7 @@ export class AuthService {
 
   // Not the actual implementation
   login(username: string, password: string): void {
-    let temp = {username: username, password: password};
+    let temp = {username: username, password: password, medical_record: { id: 1 }};
     sessionStorage.isLogin = true;
     sessionStorage.currentStaff = JSON.stringify(temp);
     this.router.navigate(['']);

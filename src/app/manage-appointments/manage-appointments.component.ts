@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { MessageService, TypeEnum } from '../services/message.service';
 
@@ -18,7 +19,7 @@ export class ManageAppointmentsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private router: Router) { }
 
   ngOnInit(): void {
     this.apiService.getAppointments(1).subscribe( // value 1 to be replaced with logged in user id
@@ -43,5 +44,6 @@ export class ManageAppointmentsComponent implements OnInit, AfterViewInit {
 
   redirect(id: number) {
     console.log(id);
+    this.router.navigateByUrl('/appointment/' + id);
   }
 }
