@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-view-appointment',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewAppointmentComponent implements OnInit {
 
-  constructor() { }
+  appointment: any;
+
+  constructor(private apiService: ApiService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    const id = +this.route.snapshot.paramMap.get('id');
+    this.apiService.getAppointmentById(id)
+      .subscribe(result => this.appointment = result);
   }
 
 }

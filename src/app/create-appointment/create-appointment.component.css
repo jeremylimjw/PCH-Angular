@@ -1,0 +1,43 @@
+.card {
+    text-align: center;
+}
+
+.card-actions {
+    text-align: right; 
+    margin: 0; 
+    padding: 0;
+}
+
+.mat-grid-tile {
+    border: 1px solid #CDCDCD;
+}
+
+.cell:hover {
+    background-color: #3c4fb8c2;
+    color: white;
+}
+
+.cell.disabled {
+    background-color:#F5F5F5;
+    color:#A9A9A9;
+    pointer-events: none;
+}
+
+.cell.selected {
+    background-color: #3f51b5;
+    color: white;
+}
+
+.cell .today {
+    font-weight: bold;
+}
+
+.cell .day {
+    align-self: flex-start;
+    margin: 5px;
+    margin-right: auto;
+}
+
+.mat-radio-button {
+    text-align: left !important;
+}

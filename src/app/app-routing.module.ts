@@ -9,15 +9,17 @@ import { ManageAppointmentsComponent } from './manage-appointments/manage-appoin
 import { RegisterComponent } from './register/register.component';
 import { AntiAuthGuard } from './guards/anti-auth.guard';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { ViewAppointmentComponent } from './view-appointment/view-appointment.component';
 
 const routes: Routes = [
   { path: "", component: HomeComponent, canActivate: [AuthGuard]},
   { path: "login", component: LoginComponent, canActivate: [AntiAuthGuard]},
   { path: "register", component: RegisterComponent, canActivate: [AntiAuthGuard]},
   { path: "new", component: CreateAppointmentComponent, canActivate: [AuthGuard]},
-  { path: "history", component: ManageAppointmentsComponent, canActivate: [AuthGuard]},
+  { path: "appointments", component: ManageAppointmentsComponent, canActivate: [AuthGuard]},
   { path: "account", component: ManageAccountComponent, canActivate: [AuthGuard]},
   { path: "welcome", component: WelcomeComponent, canActivate: [AntiAuthGuard]},
+  { path: 'appointment/:id', component: ViewAppointmentComponent, canActivate: [AuthGuard] },
   { path: '**',  redirectTo: '/' }
 ];
 

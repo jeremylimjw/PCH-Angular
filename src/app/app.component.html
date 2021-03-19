@@ -3,7 +3,7 @@
     <a mat-button [routerLink]="'/login'" *ngIf="!authService.isLoggedIn()"><mat-icon>lock</mat-icon> Login </a>
     <a mat-button [routerLink]="'/register'" *ngIf="!authService.isLoggedIn()"><mat-icon>person_add</mat-icon> Create Account </a>
     <a mat-button [routerLink]="'/new'" *ngIf="authService.isLoggedIn()"><mat-icon>add_circle_outline</mat-icon> New Appointment </a>
-    <a mat-button [routerLink]="'/history'" *ngIf="authService.isLoggedIn()"><mat-icon>history</mat-icon> History </a>
+    <a mat-button [routerLink]="'/appointments'" *ngIf="authService.isLoggedIn()"><mat-icon>access_time</mat-icon> Appointments </a>
     <a mat-button [routerLink]="'/account'" *ngIf="authService.isLoggedIn()"><mat-icon>person</mat-icon> Account </a>
     <span style="flex: 1 1 auto;"></span>
     <a mat-button (click)="authService.logout()" *ngIf="authService.isLoggedIn()"><mat-icon>logout</mat-icon> Logout </a>
