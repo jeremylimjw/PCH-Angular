@@ -1,0 +1,17 @@
+.group {
+    margin-bottom: 15px;
+}
+
+.group p, .group h3 {
+    margin: 0;
+}
+
+.align-left {
+    text-align: left;
+    width: 100%;
+}
+
+.align-right {
+    text-align: right;
+    width: 100%;
+}

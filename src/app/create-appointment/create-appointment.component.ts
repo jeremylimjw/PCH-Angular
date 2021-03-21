@@ -100,7 +100,7 @@ export class CreateAppointmentComponent implements OnInit {
         if (count >= (this.doctors.length * TIME_ARRAY.length)) return true;
       } else {
         for (let appointment of this.filteredAppointments) if(appointment.date_time.toDateString() == date.toDateString()) count++;
-        if (count >= (this.doctors.length)) return true;
+        if (count >= (TIME_ARRAY.length)) return true;
       }
     }
 

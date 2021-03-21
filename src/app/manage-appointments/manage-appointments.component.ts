@@ -1,10 +1,10 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, Inject } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
-import { MessageService, TypeEnum } from '../services/message.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ViewAppointmentComponent } from '../view-appointment/view-appointment.component';
 
 @Component({
   selector: 'app-manage-appointments',
@@ -19,12 +19,17 @@ export class ManageAppointmentsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private apiService: ApiService, private router: Router) { }
+  constructor(
+    private apiService: ApiService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.apiService.getAppointments(1).subscribe( // value 1 to be replaced with logged in user id
       result => {
-        for (let i = 0; i < result.length; i++) result[i].date_time = new Date(result[i].date_time.replace('[UTC]',''))
+        for (let appointment of result) {
+          appointment.date_time = new Date(appointment.date_time.replace('[UTC]',''));
+          appointment.date_created = new Date(appointment.date_created.replace('[UTC]',''));
+        }
           
         this.dataSource.data = result;
         this.dataSource.sort = this.sort;
@@ -37,13 +42,15 @@ export class ManageAppointmentsComponent implements OnInit, AfterViewInit {
     this.dataSource.sortingDataAccessor = (item, property) => {
       switch (property) {
         case 'medical_certificate': return item['medical_certificate'] ? 1 : 0;
+        case 'doctor': {
+          return item['employee'].name;
+        }
         default: return item[property];
       }
     }
   }
 
-  redirect(id: number) {
-    console.log(id);
-    this.router.navigateByUrl('/appointment/' + id);
+  openDialog(appointment: any) {
+    this.dialog.open(ViewAppointmentComponent, { data: { appointment: appointment }, width: '500px' });
   }
 }

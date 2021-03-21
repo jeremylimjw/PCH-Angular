@@ -17,6 +17,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -65,7 +67,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
     MatInputModule,
     MatCardModule,
     MatSelectModule,
-    MatGridListModule
+    MatGridListModule,
+    MatDialogModule,
+    MatTabsModule
   ],
   providers: [httpInterceptorProviders, AuthGuard, AntiAuthGuard],
   bootstrap: [AppComponent]

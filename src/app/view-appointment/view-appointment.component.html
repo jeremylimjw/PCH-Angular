@@ -1,2 +1,69 @@
-<span class="error-message" *ngIf="appointment == undefined">NO APPOINTMENT FOUND</span>
-{{ appointment | json }}
+<h2 mat-dialog-title>Appointment Details</h2>
+<mat-dialog-content>
+    
+    <mat-tab-group dynamicHeight>
+        <mat-tab label="Details">
+
+            <div class="group">
+                <h3>Queue No</h3>
+                <p>{{ data.appointment.queue_no }}</p>
+            </div>
+            <div class="group">
+                <h3>Appointment Time</h3>
+                <p>{{ data.appointment.date_time | date: 'dd/MM/yyyy hh:mm a' }}</p>
+            </div>
+            <div class="group">
+                <h3>Assigned Doctor</h3>
+                <p>{{ data.appointment.employee.name }}</p>
+            </div>
+            <div class="group">
+                <h3>Appointment Type</h3>
+                <p>{{ data.appointment.appointment_type }}</p>
+            </div>
+            <div class="group">
+                <h3>Schedule Type</h3>
+                <p>{{ data.appointment.schedule_type }}</p>
+            </div>
+            <div class="group">
+                <h3>Date Created</h3>
+                <p>{{ data.appointment.date_created | date: 'dd/MM/yyyy hh:mm a' }}</p>
+            </div>
+            <div class="group">
+                <h3>Status</h3>
+                <p>{{ data.appointment.status }}</p>
+            </div>
+
+        </mat-tab>
+
+        <mat-tab label="Bill" [disabled]="data.appointment.total_price == 0">
+            <div class="group">
+                <mat-grid-list cols="4" rowHeight="40px">
+                    <mat-grid-tile><div class="align-left"><h3>Item</h3></div></mat-grid-tile>
+                    <mat-grid-tile><h3>Unit Price</h3></mat-grid-tile>
+                    <mat-grid-tile><h3>Quantity</h3></mat-grid-tile>
+                    <mat-grid-tile><div class="align-right"><h3>Subtotal</h3></div></mat-grid-tile>
+
+                    <mat-grid-tile colspan="3"><div class="align-left">Basic Rate</div></mat-grid-tile>
+                    <mat-grid-tile><div class="align-right">{{ getBasicRate() | currency }}</div></mat-grid-tile>
+                    <div *ngFor="let prescriptions of data.appointment.prescriptions">
+                        <mat-grid-tile><div class="align-left">{{ prescriptions.medication.name }}</div></mat-grid-tile>
+                        <mat-grid-tile>{{ prescriptions.medication.price_per_quantity | currency }}</mat-grid-tile>
+                        <mat-grid-tile>{{ prescriptions.quantity }}</mat-grid-tile>
+                        <mat-grid-tile><div class="align-right">{{ (prescriptions.medication.price_per_quantity * prescriptions.quantity) | currency }}</div></mat-grid-tile>
+                    </div>
+                </mat-grid-list>
+            </div>
+            <div class="group">
+                <mat-grid-list cols="4" rowHeight="40px">
+                    <mat-grid-tile colspan="3"><div class="align-left">Total Price</div></mat-grid-tile>
+                    <mat-grid-tile><div class="align-right"><b>{{ data.appointment.total_price | currency }}</b></div></mat-grid-tile>
+                </mat-grid-list>
+            </div>
+        </mat-tab>
+    </mat-tab-group>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button color="warn" [disabled]="data.appointment.status != 'BOOKED'" (click)="cancelAppointment()">Cancel Appointment</button>
+    <button mat-button [mat-dialog-close]="true" mat-dialog-close cdkFocusInitial>Close</button>
+</mat-dialog-actions>
