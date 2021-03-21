@@ -92,16 +92,19 @@ export class CreateAppointmentComponent implements OnInit {
     this.selectedDateControl.setValue(date);
   }
 
-  sumAppointments(date: Date): number {
+  ifExceeds(date: Date): boolean {
     let count = 0;
     if(this.appointments && this.filteredAppointments) {
       if (this.selectedDoctorControl.value == 'any') {
         for (let appointment of this.appointments) if(appointment.date_time.toDateString() == date.toDateString()) count++;
+        if (count >= (this.doctors.length * TIME_ARRAY.length)) return true;
       } else {
         for (let appointment of this.filteredAppointments) if(appointment.date_time.toDateString() == date.toDateString()) count++;
+        if (count >= (this.doctors.length)) return true;
       }
     }
-    return count;
+
+    return false;
   }
   // --- End of part 2 ---
 
@@ -145,7 +148,7 @@ export class CreateAppointmentComponent implements OnInit {
     }
 
     this.apiService.newAppointment(id, this.authService.getUser().medical_record.id, this.selectedTimeControl.value, this.selectedTypeControl.value).subscribe(result => {
-      this.messageService.addMessage(TypeEnum.Success, "New appointment has been created!", "Appointment ID with " + result + " has been created");
+      this.messageService.addTemporaryMessage(TypeEnum.Success, "New appointment has been created!", "Appointment ID with " + result + " has been created");
       this.router.navigate(['appointments']);
     });
   }

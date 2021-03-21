@@ -23,6 +23,11 @@
     pointer-events: none;
 }
 
+.invalid {
+    background-color:#CD5C5C;
+    color:#A9A9A9;
+}
+
 .cell.selected {
     background-color: #3f51b5;
     color: white;

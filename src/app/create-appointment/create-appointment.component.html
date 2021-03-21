@@ -38,6 +38,7 @@
         
         <mat-card class="card">
             <mat-grid-list cols="7" rowHeight="40px">
+                <mat-grid-tile colspan="7" *ngIf="selectedDoctorControl.value != 'any'"> {{ selectedDoctorControl.value.name }}'s Available Schedule</mat-grid-tile>
                 <mat-grid-tile colspan="7">
                     <button mat-icon-button color="primary" (click)="decrementMonth()"><mat-icon>keyboard_arrow_left</mat-icon></button>
                     <span style="font-size: 20px; width: 160px;">{{ selectedMonth | date:'MMMM YYYY'}}</span>
@@ -53,7 +54,7 @@
             </mat-grid-list>
             <mat-grid-list cols="7" rowHeight="80px">
                 <mat-grid-tile *ngFor="let date of calendarDates" class="cell" 
-                [ngClass]="{'disabled' : date < today || sumAppointments(date) >= doctors.length * TIME_ARRAY, 'selected' : date == selectedDateControl.value }" (click)="selectDate(date)">
+                [ngClass]="{'disabled' : date < today, 'invalid' : ifExceeds(date), 'selected' : date == selectedDateControl.value }" (click)="selectDate(date)">
                     <span class="day" [ngClass]="{ 'today' : date.toDateString() == today.toDateString() }">{{date | date:'d'}}</span>
                 </mat-grid-tile>
             </mat-grid-list>
@@ -73,6 +74,7 @@
 
             <mat-radio-group [formControl]="selectedTimeControl" required>
                 <mat-grid-list cols="1" rowHeight="40px">
+                    <mat-grid-tile *ngIf="selectedDoctorControl.value != 'any'"> {{ selectedDoctorControl.value.name }}'s Available Schedule</mat-grid-tile>
                     <mat-grid-tile> {{ selectedDateControl.value | date: 'fullDate'}}</mat-grid-tile>
                 </mat-grid-list>
                 <mat-grid-list cols="4" rowHeight="40px">
