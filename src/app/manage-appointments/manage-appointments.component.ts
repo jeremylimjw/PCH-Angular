@@ -42,9 +42,7 @@ export class ManageAppointmentsComponent implements OnInit, AfterViewInit {
     this.dataSource.sortingDataAccessor = (item, property) => {
       switch (property) {
         case 'medical_certificate': return item['medical_certificate'] ? 1 : 0;
-        case 'doctor': {
-          return item['employee'].name;
-        }
+        case 'doctor': return item['employee'].name;
         default: return item[property];
       }
     }
