@@ -17,10 +17,15 @@
     color: white;
 }
 
-.cell.disabled {
+.disabled {
     background-color:#F5F5F5;
     color:#A9A9A9;
     pointer-events: none;
+}
+
+.invalid {
+    background-color:#CD5C5C;
+    color:#A9A9A9;
 }
 
 .cell.selected {

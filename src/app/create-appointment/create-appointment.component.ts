@@ -23,7 +23,7 @@ const TIME_ARRAY = [
 })
 export class CreateAppointmentComponent implements OnInit {
   
-  doctors: any[];
+  doctors: any[] = [];
   appointments: any[];
   filteredAppointments: any[];
 
@@ -49,6 +49,7 @@ export class CreateAppointmentComponent implements OnInit {
   ngOnInit(): void {
     this.apiService.getDoctors().subscribe(result => this.doctors = result);
     this.apiService.getAllAppointments().subscribe(result => {
+      for (let appointment of result) appointment.date_time = new Date(appointment.date_time.replace('[UTC]',''))
       this.appointments = result;
       this.filteredAppointments = result;
     });
@@ -90,6 +91,21 @@ export class CreateAppointmentComponent implements OnInit {
   selectDate(date: Date): void {
     this.selectedDateControl.setValue(date);
   }
+
+  ifExceeds(date: Date): boolean {
+    let count = 0;
+    if(this.appointments && this.filteredAppointments) {
+      if (this.selectedDoctorControl.value == 'any') {
+        for (let appointment of this.appointments) if(appointment.date_time.toDateString() == date.toDateString()) count++;
+        if (count >= (this.doctors.length * TIME_ARRAY.length)) return true;
+      } else {
+        for (let appointment of this.filteredAppointments) if(appointment.date_time.toDateString() == date.toDateString()) count++;
+        if (count >= (this.doctors.length)) return true;
+      }
+    }
+
+    return false;
+  }
   // --- End of part 2 ---
 
   // --- Part 3 of form ---
@@ -102,13 +118,39 @@ export class CreateAppointmentComponent implements OnInit {
     return null;
   }
 
+  ifContains(time: any): boolean {
+    if(this.appointments && this.filteredAppointments && this.selectedDateControl.value) {
+      let thisDate = new Date(this.selectedDateControl.value.getTime() + time.hour*60*60*1000 + time.min*60*1000);
+      if (this.selectedDoctorControl.value == 'any') {
+        let count = 0;
+        for (let appointment of this.appointments) 
+          if(appointment.date_time.getTime() == thisDate.getTime()) count++;
+        if (count >= this.doctors.length) return true;
+      } else {
+        for (let appointment of this.filteredAppointments) 
+          if(appointment.date_time.getTime() == thisDate.getTime()) return true;
+      }
+    }
+    return false;
+  }
+
   submit(): void {
-    let id = this.selectedDoctorControl.value != 'any' ? this.selectedDoctorControl.value.id : this.doctors[Math.trunc(Math.random() * this.doctors.length)].id;
-    console.log(this.selectedTimeControl.value)
-    // this.apiService.newAppointment(id, this.authService.getUser().medical_record.id, this.selectedTimeControl.value, this.selectedTypeControl.value).subscribe(result => {
-    //   this.messageService.addMessage(TypeEnum.Success, "New appointment has been created!", "Appointment ID with " + result + " has been created");
-    //   this.router.navigate(['appointments']);
-    // });
+    let id: number = undefined;
+    if (this.selectedDoctorControl.value != 'any') {
+      id = this.selectedDoctorControl.value.id;
+    } else {
+      let appointmentsWithThatTime = this.appointments.filter(x => x.date_time.getTime() == this.selectedTimeControl.value.getTime());
+      let trimmedDoctors = [...this.doctors];
+      for (let a of appointmentsWithThatTime) {
+        trimmedDoctors = trimmedDoctors.filter(x => x.id != a.employee.id);
+      }
+      id =  trimmedDoctors[Math.trunc(Math.random() * trimmedDoctors.length)].id;
+    }
+
+    this.apiService.newAppointment(id, this.authService.getUser().medical_record.id, this.selectedTimeControl.value, this.selectedTypeControl.value).subscribe(result => {
+      this.messageService.addTemporaryMessage(TypeEnum.Success, "New appointment has been created!", "Appointment ID with " + result + " has been created");
+      this.router.navigate(['appointments']);
+    });
   }
   // --- End of part 3 ---
 
