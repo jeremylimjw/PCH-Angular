@@ -21,8 +21,7 @@ export class ManageAppointmentsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private apiService: ApiService,
-    public dialog: MatDialog) {
-    }
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.apiService.getAppointments(1).subscribe( // value 1 to be replaced with logged in user id
