@@ -5,6 +5,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ApiService } from '../services/api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ViewAppointmentComponent } from '../view-appointment/view-appointment.component';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-manage-appointments',
@@ -21,11 +22,12 @@ export class ManageAppointmentsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private apiService: ApiService,
+    private authService: AuthService,
     public dialog: MatDialog) {
     }
 
   ngOnInit(): void {
-    this.apiService.getAppointments(1).subscribe( // value 1 to be replaced with logged in user id
+    this.apiService.getAppointments(this.authService.getUser().medical_record.id).subscribe(
       result => {
         for (let appointment of result) {
           appointment.date_time = new Date(appointment.date_time.replace('[UTC]',''));
