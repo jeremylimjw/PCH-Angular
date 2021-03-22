@@ -23,7 +23,7 @@ const TIME_ARRAY = [
 })
 export class CreateAppointmentComponent implements OnInit {
   
-  doctors: any[] = [];
+  doctors: any[];
   appointments: any[];
   filteredAppointments: any[];
 
@@ -44,6 +44,13 @@ export class CreateAppointmentComponent implements OnInit {
     private messageService: MessageService,
     private router: Router) {
     this.today.setHours(0,0,0,0); 
+    this.doctors = [];
+    this.appointments = [];
+    this.filteredAppointments = [];
+    this.selectedDoctorControl = new FormControl('any', Validators.required);
+    this.selectedTypeControl = new FormControl('CONSULTATION', Validators.required);
+    this.selectedDateControl = new FormControl('', Validators.required);
+    this.selectedTimeControl = new FormControl('', Validators.required);
   }
 
   ngOnInit(): void {
@@ -54,11 +61,7 @@ export class CreateAppointmentComponent implements OnInit {
       this.filteredAppointments = result;
     });
     
-    this.selectedDoctorControl = new FormControl('any', Validators.required);
     this.selectedDoctorControl.valueChanges.subscribe(value => this.filteredAppointments = this.appointments.filter(x => x.employee.id == value.id));
-    this.selectedTypeControl = new FormControl('CONSULTATION', Validators.required);
-    this.selectedDateControl = new FormControl('', Validators.required);
-    this.selectedTimeControl = new FormControl('', Validators.required);
     
     this.populateCalendar();
   }
@@ -135,7 +138,7 @@ export class CreateAppointmentComponent implements OnInit {
   }
 
   submit(): void {
-    let id: number = undefined;
+    let id: number;
     if (this.selectedDoctorControl.value != 'any') {
       id = this.selectedDoctorControl.value.id;
     } else {

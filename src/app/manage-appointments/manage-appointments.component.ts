@@ -21,7 +21,8 @@ export class ManageAppointmentsComponent implements OnInit, AfterViewInit {
 
   constructor(
     private apiService: ApiService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog) {
+    }
 
   ngOnInit(): void {
     this.apiService.getAppointments(1).subscribe( // value 1 to be replaced with logged in user id
@@ -39,7 +40,7 @@ export class ManageAppointmentsComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.dataSource.sortingDataAccessor = (item, property) => {
+    this.dataSource.sortingDataAccessor = (item: any, property: any) => {
       switch (property) {
         case 'medical_certificate': return item['medical_certificate'] ? 1 : 0;
         case 'doctor': return item['employee'].name;
