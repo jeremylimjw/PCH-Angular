@@ -33,6 +33,7 @@ export class CreateAppointmentComponent implements OnInit {
   selectedTimeControl: FormControl;
 
   TIME_ARRAY = TIME_ARRAY;
+  now = new Date();
   today = new Date();
   selectedMonth = new Date();
   calendarDates: Date[] = new Array();

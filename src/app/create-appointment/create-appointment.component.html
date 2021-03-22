@@ -78,7 +78,7 @@
                     <mat-grid-tile> {{ selectedDateControl.value | date: 'fullDate'}}</mat-grid-tile>
                 </mat-grid-list>
                 <mat-grid-list cols="4" rowHeight="40px">
-                    <mat-grid-tile *ngFor="let time of TIME_ARRAY" [ngClass]="{ 'disabled' : ifContains(time) }">
+                    <mat-grid-tile *ngFor="let time of TIME_ARRAY" [ngClass]="{ 'disabled' : ifContains(time) || constructDate(time.hour, time.min) < now }">
                         <mat-radio-button [value]="constructDate(time.hour, time.min)" [disabled]="ifContains(time)">{{ time.text }}</mat-radio-button></mat-grid-tile>
                 </mat-grid-list>
             </mat-radio-group>
