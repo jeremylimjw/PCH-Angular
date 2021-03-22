@@ -16,7 +16,7 @@ export class ViewAppointmentComponent {
     private apiService: ApiService) { }
 
   getBasicRate() {
-    return this.data.appointment.total_price - this.data.appointment.prescriptions.reduce((a,b) => a + (b.medication.price_per_quantity * b.quantity), 0);
+    return this.data.appointment.total_price - this.data.appointment.prescriptions.reduce((a: any,b: any) => a + (b.medication.price_per_quantity * b.quantity), 0);
   }
 
   cancelAppointment() {

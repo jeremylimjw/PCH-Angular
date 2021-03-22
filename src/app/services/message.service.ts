@@ -7,15 +7,23 @@ export enum TypeEnum {
   Success
 }
 
+interface Message {
+  id: number;
+  type: TypeEnum;
+  title: string;
+  description: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class MessageService {
   counter: number;
-  messages: any = [];
+  messages: Message[];
 
   constructor() {
     this.counter = 1;
+    this.messages = [];
   }
 
   addMessage(type: TypeEnum, title: string, description: string) {
@@ -40,7 +48,7 @@ export class MessageService {
     this.counter++;
     
     timer(3000).subscribe(x => {
-      this.messages = this.messages.filter(y => y.id != message.id);
+      this.messages = this.messages.filter(x => x.id != message.id);
     });
   }
 
