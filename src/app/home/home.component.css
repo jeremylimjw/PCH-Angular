@@ -1,0 +1,20 @@
+.mat-grid-tile {
+    border: 1px solid #808080;
+}
+
+.mat-header-cell, .mat-cell {
+    text-align: center;
+}
+
+.mat-table, .mat-paginator {
+    max-width: 600px;
+    margin: auto;
+}
+
+.mat-paginator {
+    margin-top: 20px;
+}
+
+.highlight {
+    background-color: #00BFFF;
+}

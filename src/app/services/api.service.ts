@@ -32,4 +32,8 @@ export class ApiService {
   getDoctors(): Observable<any> {
     return this.http.get<any>(`api/doctors`);
   }
+  
+  getQueueBoard(): Observable<any> {
+    return this.http.get<any>(`api/queueBoard`);
+  }
 }

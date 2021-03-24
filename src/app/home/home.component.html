@@ -1,1 +1,27 @@
-<p>Show queue board</p>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width:100%;">
+
+    <ng-container matColumnDef="queue_no">
+        <th mat-header-cell *matHeaderCellDef style="width: 200px;"> Queue No </th>
+        <td mat-cell *matCellDef="let a"> {{ a.appointment.queue_no }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="seeing">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let a"><span class="material-icons">arrow_right_alt</span></td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef style="width: 200px;"> Doctor </th>
+        <td mat-cell *matCellDef="let a"> {{ a.employee.name }} </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="['queue_no','seeing','name']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['queue_no','seeing','name'];" [ngClass]="{ 'highlight' : isMyAppointment(row.appointment.queue_no) }"></tr>
+    <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="9999">
+            No queue number has been called yet.
+        </td>
+    </tr>
+</table>
+
+<mat-paginator [pageSizeOptions]="[10, 15, 20]"></mat-paginator>
