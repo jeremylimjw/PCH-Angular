@@ -62,7 +62,11 @@ export class CreateAppointmentComponent implements OnInit {
       this.filteredAppointments = result;
     });
     
-    this.selectedDoctorControl.valueChanges.subscribe(value => this.filteredAppointments = this.appointments.filter(x => x.employee.id == value.id));
+    this.selectedDoctorControl.valueChanges.subscribe(value => {
+      this.filteredAppointments = this.appointments.filter(x => x.employee.id == value.id);
+      this.selectedTimeControl.reset();
+    });
+    this.selectedDateControl.valueChanges.subscribe(value => this.selectedTimeControl.reset());
     
     this.populateCalendar();
   }

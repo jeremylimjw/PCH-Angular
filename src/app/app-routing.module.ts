@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: "appointments", component: ManageAppointmentsComponent, canActivate: [AuthGuard]},
   { path: "account", component: ManageAccountComponent, canActivate: [AuthGuard]},
   { path: "welcome", component: WelcomeComponent, canActivate: [AntiAuthGuard]},
-  { path: 'appointment/:id', component: ViewAppointmentComponent, canActivate: [AuthGuard] },
+  { path: 'appointment', component: ViewAppointmentComponent, canActivate: [AuthGuard] },
   { path: '**',  redirectTo: '/' }
 ];
 
