@@ -36,8 +36,9 @@ export class ApiService {
   getQueueBoard(): Observable<any> {
     return this.http.get<any>(`api/queueBoard`);
   }
-
+  
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(`api/patient/login`, { username: username, password: password });
   }
+  
 }
