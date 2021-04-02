@@ -25,7 +25,8 @@ export class CreateAppointmentComponent implements OnInit {
   
   doctors: any[];
   appointments: any[];
-  filteredAppointments: any[];
+  filteredAppointments1: any[];
+  filteredAppointments2: any[];
 
   selectedDoctorControl: FormControl;
   selectedTypeControl: FormControl;
@@ -47,7 +48,8 @@ export class CreateAppointmentComponent implements OnInit {
     this.today.setHours(0,0,0,0); 
     this.doctors = [];
     this.appointments = [];
-    this.filteredAppointments = [];
+    this.filteredAppointments1 = [];
+    this.filteredAppointments2 = [];
     this.selectedDoctorControl = new FormControl('any', Validators.required);
     this.selectedTypeControl = new FormControl('CONSULTATION', Validators.required);
     this.selectedDateControl = new FormControl('', Validators.required);
@@ -59,14 +61,22 @@ export class CreateAppointmentComponent implements OnInit {
     this.apiService.getAllAppointments().subscribe(result => {
       for (let appointment of result) appointment.date_time = new Date(appointment.date_time.replace('[UTC]',''))
       this.appointments = result;
-      this.filteredAppointments = result;
+      this.filteredAppointments1 = this.appointments;
     });
     
     this.selectedDoctorControl.valueChanges.subscribe(value => {
-      this.filteredAppointments = this.appointments.filter(x => x.employee.id == value.id);
-      this.selectedTimeControl.reset();
+      if (value != 'any') {
+        this.filteredAppointments1 = this.appointments.filter(x => x.employee.id == value.id);
+      } else {
+        this.filteredAppointments1 = this.appointments;
+      }
     });
-    this.selectedDateControl.valueChanges.subscribe(value => this.selectedTimeControl.reset());
+
+    this.selectedDateControl.valueChanges.subscribe(value => {
+      if (value) {
+        this.filteredAppointments2 = this.filteredAppointments1.filter(x => x.date_time.toDateString() == value.toDateString());
+      }
+    });
     
     this.populateCalendar();
   }
@@ -81,7 +91,10 @@ export class CreateAppointmentComponent implements OnInit {
     if (upper_bound_date.getDay() < 6) upper_bound_date.setDate(upper_bound_date.getDate() + (6 - upper_bound_date.getDay()))
 
     while (pointer <= upper_bound_date) {
-      this.calendarDates.push(new Date(pointer))
+      if (pointer.getDay() != 0 && pointer.getDay() != 6) {
+
+        this.calendarDates.push(new Date(pointer))
+      }
       pointer.setDate(pointer.getDate() + 1)
     }
   }
@@ -102,12 +115,12 @@ export class CreateAppointmentComponent implements OnInit {
 
   ifExceeds(date: Date): boolean {
     let count = 0;
-    if(this.appointments && this.filteredAppointments) {
+    if(this.appointments && this.filteredAppointments1) {
       if (this.selectedDoctorControl.value == 'any') {
         for (let appointment of this.appointments) if(appointment.date_time.toDateString() == date.toDateString() && appointment.status != 'CANCELLED') count++;
         if (count >= (this.doctors.length * TIME_ARRAY.length)) return true;
       } else {
-        for (let appointment of this.filteredAppointments) if(appointment.date_time.toDateString() == date.toDateString() && appointment.status != 'CANCELLED') count++;
+        for (let appointment of this.filteredAppointments1) if(appointment.date_time.toDateString() == date.toDateString() && appointment.status != 'CANCELLED') count++;
         if (count >= (TIME_ARRAY.length)) return true;
       }
     }
@@ -127,16 +140,16 @@ export class CreateAppointmentComponent implements OnInit {
   }
 
   ifContains(time: any): boolean {
-    if(this.appointments && this.filteredAppointments && this.selectedDateControl.value) {
-      let thisDate = new Date(this.selectedDateControl.value.getTime() + time.hour*60*60*1000 + time.min*60*1000);
+    if(this.appointments && this.selectedDateControl.value) {
+      let thisDate = this.selectedDateControl.value.getTime() + time.hour*60*60*1000 + time.min*60*1000;
       if (this.selectedDoctorControl.value == 'any') {
         let count = 0;
-        for (let appointment of this.appointments) 
-          if(appointment.date_time.getTime() == thisDate.getTime() && appointment.status != 'CANCELLED') count++;
+        for (let appointment of this.filteredAppointments2) 
+          if(appointment.date_time.getTime() == thisDate && appointment.status != 'CANCELLED') count++;
         if (count >= this.doctors.length) return true;
       } else {
-        for (let appointment of this.filteredAppointments) 
-          if(appointment.date_time.getTime() == thisDate.getTime() && appointment.status != 'CANCELLED') return true;
+        for (let appointment of this.filteredAppointments2) 
+          if(appointment.date_time.getTime() == thisDate && appointment.status != 'CANCELLED') return true;
       }
     }
     return false;

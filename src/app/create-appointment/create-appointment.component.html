@@ -37,22 +37,21 @@
         <ng-template matStepLabel>Select a date</ng-template>
         
         <mat-card class="card">
-            <mat-grid-list cols="7" rowHeight="40px">
-                <mat-grid-tile colspan="7" *ngIf="selectedDoctorControl.value != 'any'"> {{ selectedDoctorControl.value.name }}'s Available Schedule</mat-grid-tile>
-                <mat-grid-tile colspan="7">
+            
+            <mat-grid-list cols="5" rowHeight="40px">
+                <mat-grid-tile colspan="5" *ngIf="selectedDoctorControl.value != 'any'"> {{ selectedDoctorControl.value.name }}'s Available Schedule</mat-grid-tile>
+                <mat-grid-tile colspan="5">
                     <button mat-icon-button color="primary" (click)="decrementMonth()"><mat-icon>keyboard_arrow_left</mat-icon></button>
                     <span style="font-size: 20px; width: 160px;">{{ selectedMonth | date:'MMMM YYYY'}}</span>
                     <button mat-icon-button color="primary" (click)="incrementMonth()"><mat-icon>keyboard_arrow_right</mat-icon></button>
                 </mat-grid-tile>
-                <mat-grid-tile><b>Sunday</b></mat-grid-tile>
                 <mat-grid-tile><b>Monday</b></mat-grid-tile>
                 <mat-grid-tile><b>Tuesday</b></mat-grid-tile>
                 <mat-grid-tile><b>Wednesday</b></mat-grid-tile>
                 <mat-grid-tile><b>Thursday</b></mat-grid-tile>
                 <mat-grid-tile><b>Friday</b></mat-grid-tile>
-                <mat-grid-tile><b>Saturday</b></mat-grid-tile>
             </mat-grid-list>
-            <mat-grid-list cols="7" rowHeight="80px">
+            <mat-grid-list cols="5" rowHeight="90px">
                 <mat-grid-tile *ngFor="let date of calendarDates" class="cell" 
                 [ngClass]="{'disabled' : date < today, 'invalid' : ifExceeds(date), 'selected' : date == selectedDateControl.value }" (click)="selectDate(date)">
                     <span class="day" [ngClass]="{ 'today' : date.toDateString() == today.toDateString() }">{{date | date:'d'}}</span>
@@ -67,11 +66,10 @@
     </mat-step>
     
     <mat-step [stepControl]="selectedTimeControl">
-
         <ng-template matStepLabel>Select a time</ng-template>
 
         <mat-card class="card">
-
+            
             <mat-radio-group [formControl]="selectedTimeControl" required>
                 <mat-grid-list cols="1" rowHeight="40px">
                     <mat-grid-tile *ngIf="selectedDoctorControl.value != 'any'"> {{ selectedDoctorControl.value.name }}'s Available Schedule</mat-grid-tile>
@@ -79,7 +77,8 @@
                 </mat-grid-list>
                 <mat-grid-list cols="4" rowHeight="40px">
                     <mat-grid-tile *ngFor="let time of TIME_ARRAY" [ngClass]="{ 'disabled' : ifContains(time) || constructDate(time.hour, time.min) < now }">
-                        <mat-radio-button [value]="constructDate(time.hour, time.min)" [disabled]="ifContains(time)">{{ time.text }}</mat-radio-button></mat-grid-tile>
+                        <mat-radio-button [value]="constructDate(time.hour, time.min)" [disabled]="ifContains(time)">{{ time.text }}</mat-radio-button>
+                    </mat-grid-tile>
                 </mat-grid-list>
             </mat-radio-group>
             <br>

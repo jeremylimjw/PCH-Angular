@@ -33,7 +33,11 @@ export class HomeComponent implements OnInit {
   }
 
   isMyAppointment(queue_no: string): boolean {
-    for (let a of this.appointments) if (a.queue_no == queue_no) return true;
+    if (this.appointments.length) {
+      for (let a of this.appointments) {
+        if (a.queue_no == queue_no) return true;
+      }
+    }
     return false;
   }
 
