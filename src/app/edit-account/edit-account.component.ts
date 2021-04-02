@@ -11,9 +11,6 @@ export class EditAccountComponent implements OnInit {
 
   ngOnInit(): void {
 
-    
-
-
   }
 
 }

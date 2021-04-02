@@ -1,3 +1,53 @@
 <p>manage-account works!</p>
 <p>should allow edit medical record here as well</p>
+
+<table width="100%" >
+
+<tr>
+    <td width="20%" style="font-weight: bold;"> ID </td>
+    <td>{{medicalRecord.id}}</td>
+</tr>
+<tr>
+    <td width="20%" style="font-weight: bold;"> Name </td>
+    <td>{{medicalRecord.name}}</td>
+</tr>
+<tr>
+    <td width="20%" style="font-weight: bold;"> NRIC </td>
+    <td>{{medicalRecord.nric}}</td>
+</tr>
+<tr>
+    <td width="20%" style="font-weight: bold;"> Address </td>
+    <td>{{medicalRecord.address}}</td>
+</tr>
+<tr>
+    <td width="20%" style="font-weight: bold;"> Date of birth </td>
+    <td>{{medicalRecord.dob | date: 'dd/MM/yyyy'}}</td>
+</tr>
+<tr>
+    <td width="20%" style="font-weight: bold;"> Contect number </td>
+    <td>{{medicalRecord.contact_number}}</td>
+</tr>
+<tr>
+    <td width="20%" style="font-weight: bold;"> Blood type </td>
+    <td>{{medicalRecord.blood_type}}</td>
+</tr>
+<tr>
+    <td width="20%" style="font-weight: bold;"> Drug Allergys </td>
+    <td>{{medicalRecord.drug_allergys}}</td>
+</tr>
+<tr>
+    <td width="20%" style="font-weight: bold;"> Family Histories </td>
+    <td>{{medicalRecord.family_historys}}</td>
+</tr>
+<tr>
+    <td width="20%" style="font-weight: bold;"> Past Medical Histories </td>
+    <td>{{medicalRecord.past_medical_historys}}</td>
+</tr>
+<tr>
+    <td width="20%" style="font-weight: bold;"> Vaccinations </td>
+    <td>{{medicalRecord.vaccinations}}</td>
+</tr>
+
+</table>
+
 {{user | json }}
