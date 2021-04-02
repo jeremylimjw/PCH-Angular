@@ -13,8 +13,8 @@ import { MessageService, TypeEnum } from '../services/message.service';
 export class LoginComponent implements OnInit {
 
   loginForm = this.formBuilder.group({
-    username: new FormControl('desmond', Validators.required),
-    password: new FormControl('password', Validators.required)
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
   });
 
   constructor(
