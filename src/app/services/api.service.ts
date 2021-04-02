@@ -40,5 +40,8 @@ export class ApiService {
   login(username: string, password: string): Observable<any> {
     return this.http.post<any>(`api/patient/login`, { username: username, password: password });
   }
-  
+
+  register(body: any): Observable<any> {
+    return this.http.post<any>(`api/patient/register`, body);
+  }
 }
