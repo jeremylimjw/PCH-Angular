@@ -1,0 +1,10 @@
+.sub-container {
+    margin: auto;
+    width: 600px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+mat-form-field {
+    width: 100%;
+}
