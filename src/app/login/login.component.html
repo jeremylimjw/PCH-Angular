@@ -1,2 +1,14 @@
-<p>login works!</p>
-<button mat-raised-button (click)="authService.login('test','asd')" color="accent">Meaningless login</button>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    
+    <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password">
+    </mat-form-field>
+
+    <button mat-raised-button type="submit" color="accent" [disabled]="loginForm.invalid">Meaningless login</button>
+
+</form>
