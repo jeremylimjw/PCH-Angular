@@ -15,7 +15,6 @@ export class AuthService {
     let temp = {username: username, password: password, medical_record: { id: 1 }};
     sessionStorage.isLogin = true;
     sessionStorage.currentStaff = JSON.stringify(temp);
-    this.router.navigate(['']);
   }
 
   logout(): void {
@@ -27,6 +26,11 @@ export class AuthService {
   getUser(): any {
     if (sessionStorage.currentStaff) return JSON.parse(sessionStorage.currentStaff);
     return null;
+  }
+
+  setUser(user: any): void {
+    sessionStorage.isLogin = true;
+    sessionStorage.currentStaff = JSON.stringify(user);
   }
 
   isLoggedIn(): boolean {
