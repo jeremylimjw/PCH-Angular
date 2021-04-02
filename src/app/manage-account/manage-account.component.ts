@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangePasswordComponent } from '../change-password/change-password.component';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -10,10 +12,14 @@ export class ManageAccountComponent implements OnInit {
 
   user: any;
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.user = this.authService.getUser();
+  }
+  
+  openDialog() {
+    this.dialog.open(ChangePasswordComponent, { width: '500px' });
   }
 
 }
