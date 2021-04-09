@@ -35,6 +35,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AntiAuthGuard } from './guards/anti-auth.guard';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import { EditAccountComponent } from './edit-account/edit-account.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     ManageAccountComponent,
     RegisterComponent,
     WelcomeComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    EditAccountComponent
   ],
   imports: [
     BrowserModule,

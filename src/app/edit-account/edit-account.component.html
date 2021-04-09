@@ -1,0 +1,46 @@
+<h2 mat-dialog-title> Update Patient Account Information</h2>
+<mat-dialog-content>
+    <mat-tab-group dynamicHeight>
+    <mat-tab label="Personal Details">
+    <table width="100%">
+        <tr> 
+            <td width ="25%">Name:</td>
+            <td><input matInput [(ngModel)]= "medicalRecordToUpdate.name" required ="true" name = "Name"/></td>
+        </tr>
+  
+
+        <tr> 
+            <td width = "25%">NRIC:</td>
+            <td><input matInput [(ngModel)]= "medicalRecordToUpdate.nric" required ="true" name = "NRIC"/></td>
+        </tr> 
+        <tr> 
+            <td width = "25%">Address:</td>
+            <td><input matInput [(ngModel)]= "medicalRecordToUpdate.address" required ="true" name = "Address"/></td>
+        
+        </tr>
+
+        <tr>
+ 
+        <td width = "25%">Date Of Birth:</td>
+            <td><input matInput [(ngModel)]= "date" type = "date" required ="true" name = "Cnum"/></td>
+        </tr>
+
+        <tr>
+            <td width = "25%">Contact Number:</td>
+            <td><input matInput [(ngModel)]= "medicalRecordToUpdate.contact_number" required ="true" name = "Cnum"/></td>
+        </tr>
+
+        <tr>
+            <td width = "25%">Blood Type:</td>
+            <td><input matInput [(ngModel)]= "medicalRecordToUpdate.blood_type" required ="true" name = "Blood"/></td>
+        </tr>
+</table>
+</mat-tab>
+</mat-tab-group>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button color="warn" (click)="update()">Update</button>
+    <button mat-button [mat-dialog-close]="true" mat-dialog-close cdkFocusInitial>Close</button>
+</mat-dialog-actions>
+
+

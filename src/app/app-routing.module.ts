@@ -11,6 +11,7 @@ import { AntiAuthGuard } from './guards/anti-auth.guard';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { ViewAppointmentComponent } from './view-appointment/view-appointment.component';
 
+
 const routes: Routes = [
   { path: "", component: HomeComponent, canActivate: [AuthGuard]},
   { path: "login", component: LoginComponent, canActivate: [AntiAuthGuard]},
@@ -20,6 +21,8 @@ const routes: Routes = [
   { path: "account", component: ManageAccountComponent, canActivate: [AuthGuard]},
   { path: "welcome", component: WelcomeComponent, canActivate: [AntiAuthGuard]},
   { path: 'appointment', component: ViewAppointmentComponent, canActivate: [AuthGuard] },
+ 
+ 
   { path: '**',  redirectTo: '/' }
 ];
 

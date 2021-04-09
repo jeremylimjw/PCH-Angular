@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MedicalRecord } from '../models/medical-record';
+import { UpdateMedicalRecordReq } from '../models/update-medical-record-req';
 
 
 const httpOptions = {
@@ -30,6 +31,14 @@ export class MedicalRecordService {
         catchError(this.handleError)
     );
   }
+
+
+  updateMedicalRecord(body :any ): Observable<any>
+  {
+    //let updateMedicalRecord: UpdateMedicalRecordReq = new UpdateMedicalRecordReq(body.id,body.name,body.nric,body.address,body.dob,body.contact_number,body.blood_type,body.drug_allergys,body.family_historys,body.past_medical_historys,body.vaccinations)
+    return this.httpClient.post<any>(`/api/MedicalRecord/updateMedicalRecord`,body);
+  }
+ 
 
   private handleError(error: HttpErrorResponse)
     {

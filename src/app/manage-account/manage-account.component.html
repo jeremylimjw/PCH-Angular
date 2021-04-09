@@ -1,15 +1,13 @@
-<p>manage-account works!</p>
-<p>should allow edit medical record here as well</p>
 
-<table width="100%" >
 
-<tr>
-    <td width="20%" style="font-weight: bold;"> ID </td>
-    <td>{{medicalRecord.id}}</td>
-</tr>
+<div class="sub-container">
+<h2 mat-dialog-title>Account Details</h2>
+<mat-card>
+<table style= "margin-left:auto;margin-right:auto;">
 <tr>
     <td width="20%" style="font-weight: bold;"> Name </td>
     <td>{{medicalRecord.name}}</td>
+    <td>&nbsp;</td>
 </tr>
 <tr>
     <td width="20%" style="font-weight: bold;"> NRIC </td>
@@ -24,15 +22,15 @@
     <td>{{medicalRecord.dob | date: 'dd/MM/yyyy'}}</td>
 </tr>
 <tr>
-    <td width="20%" style="font-weight: bold;"> Contect number </td>
+    <td width="20%" style="font-weight: bold;"> Contact number </td>
     <td>{{medicalRecord.contact_number}}</td>
 </tr>
 <tr>
-    <td width="20%" style="font-weight: bold;"> Blood type </td>
+    <td text-align = "center" width="20%" style="font-weight: bold;"> Blood type </td>
     <td>{{medicalRecord.blood_type}}</td>
 </tr>
 <tr>
-    <td width="20%" style="font-weight: bold;"> Drug Allergys </td>
+    <td width="20%" style="font-weight: bold;"> Drug Allergies </td>
     <td>{{medicalRecord.drug_allergys}}</td>
 </tr>
 <tr>
@@ -45,10 +43,11 @@
 </tr>
 <tr>
     <td width="20%" style="font-weight: bold;"> Vaccinations </td>
-    <td>{{medicalRecord.vaccinations}}</td>
+    <td>{{medicalRecord.vaccinations}}</td>   
 </tr>
-
+<br>
 </table>
-
-{{user | json }}
 <button mat-raised-button (click)="openDialog()" color="primary">Change Password</button>
+<button mat-raised-button (click)="updateMed()" color="primary">Update Account</button>
+</mat-card>
+</div>
