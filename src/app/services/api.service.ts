@@ -44,4 +44,8 @@ export class ApiService {
   register(body: any): Observable<any> {
     return this.http.post<any>(`api/patient/register`, body);
   }
+
+  changePassword(body: any): Observable<any> {
+    return this.http.post<any>(`api/patient/changePassword`, body);
+  }
 }
