@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.apiService.login(this.loginForm.value.username, this.loginForm.value.password).subscribe(res => {
+      res['id'] = res.patientId;
       this.authService.setUser(res);
       this.router.navigate(['']);
     });

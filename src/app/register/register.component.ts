@@ -69,6 +69,7 @@ export class RegisterComponent implements OnInit {
         vaccinations: this.vaccinations.value 
       }
     }).subscribe(res => {
+      res['id'] = res.patientId;
       this.authService.setUser(res);
       this.router.navigate(['']);
     });
